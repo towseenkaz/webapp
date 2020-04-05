@@ -8,7 +8,6 @@ pipeline {
     stages {
 
         stage ('Build and Push') {
-            when { branch 'dev' }
             steps {
 				sh "echo JOB_NAME: ${env.JOB_NAME}"
                 sh "echo BUILD_NUMBER: ${env.BUILD_NUMBER}"
