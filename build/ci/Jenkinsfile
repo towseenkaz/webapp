@@ -3,22 +3,18 @@ pipeline {
 
     environment {
         CONTAINER_TAG = "${env.BRANCH_NAME}-${env.TAG_PREFIX}-${env.BUILD_NUMBER.padLeft(5, '0')}"
+		registry = "redmanh/wepapp"
+		registryCredential = 'dockerhub'
     }
 
     stages {
 
         stage ('Build and Push') {
-            steps {
-		dockerBuildAndPublish {
-		repositoryName('redmanh/webapp')
-		tag('${CONTAINER_TAG}')
-		registryCredentials('dockerhub')
-		forcePull(false)
-		forceTag(false)
-		createFingerprints(false)
-		skipDecorate()
-		}                
-            }
+            steps{
+			  script {
+				docker.build registry + ":$BUILD_NUMBER"
+			  }
+			}
         }
 		
 		stage('Slack Message') {
