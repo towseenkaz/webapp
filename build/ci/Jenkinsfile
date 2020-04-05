@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        CONTAINER_TAG = "${env.BRANCH_NAME}-${env.TAG_PREFIX}-${env.BUILD_NUMBER.padLeft(5, '0')}"
-		registry = "redmanh/webapp"
-		registryCredential = 'dockerhub'
+        CONTAINER_TAG = "${env.BRANCH_NAME}-${env.BUILD_NUMBER.padLeft(5, '0')}"
+	registry = "redmanh/webapp"
+	registryCredential = 'dockerhub'
     }
 
     stages {
