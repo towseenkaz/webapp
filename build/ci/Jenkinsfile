@@ -9,13 +9,29 @@ pipeline {
 
     stages {
 
-        stage ('Build and Push') {
+        stage ('Build Image') {
             steps{
 			  script {
 				docker.build registry + ":$BUILD_NUMBER"
 			  }
 			}
         }
+		
+		stage('Push Image') {
+		  steps{    
+			script {
+			  docker.withRegistry( '', registryCredential ) {
+				dockerImage.push()
+			  }
+			}
+		  }
+		}
+		
+		stage('Remove Unused docker image') {
+		  steps{
+			sh "docker rmi $registry:$BUILD_NUMBER"
+		  }
+		}
 		
 		stage('Slack Message') {
             steps {
