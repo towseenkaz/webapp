@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         CONTAINER_TAG = "${env.BRANCH_NAME}-${env.BUILD_NUMBER.padLeft(5, '0')}"
-	registry = "redmanh/webapp"
+	registry = "towseen/webapp"
 	registryCredential = 'dockerhub'
     }
 
